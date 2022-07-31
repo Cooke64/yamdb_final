@@ -9,7 +9,7 @@ services:
       - ./.env
 
   web:
-    build: ../api_yamdb
+    build: cooke09/yamdb
     restart: always
     volumes:
       - static_value:/app/static/
