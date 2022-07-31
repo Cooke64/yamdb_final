@@ -11,9 +11,9 @@ from .models import User
 
 
 def get_confirmation_code(username: str) -> str:
-    '''Получает токен определенного юзера
+    """Получает токен определенного юзера
      и сохраняет его в confirmation_code.
-     '''
+     """
     try:
         # при get_or_create() падают тесты
         user = User.objects.get(username=username)
@@ -23,11 +23,11 @@ def get_confirmation_code(username: str) -> str:
     user.confirmation_code = confirmation_code
     user.is_active = False
     user.save()
-    return confirmation_code
+    return str(uuid.uuid4())
 
 
 def send_code_to_email(username: str, email: str) -> None:
-    '''Отправляет сообщение с кодом по переданному адресу.'''
+    """Отправляет сообщение с кодом по переданному адресу."""
     confirmation_code = get_confirmation_code(username)
     try:
         send_mail(
@@ -42,7 +42,7 @@ def send_code_to_email(username: str, email: str) -> None:
 
 
 def get_tokens_for_user(user: str) -> Dict[str, str]:
-    '''Создает токен пользователю.'''
+    """Создает токен пользователю."""
     refresh = RefreshToken.for_user(user)
     return {
         'refresh': str(refresh),
