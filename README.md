@@ -1,4 +1,5 @@
 # yamdb_final
+###Сервер 51.250.108.211
 ![example workflow](https://github.com/Cooke64/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 # Проект YaMDb
 
@@ -19,11 +20,14 @@
 - Django DRF
 - PostgreSql
 - Docker
+- Docker-compose
+- Nginx
+- Workflow
 
 ## Клонировать репозиторий и перейти в него в командной строке:
 
 ```git clone git@github.com:Cooke64/api_yamdb.git```
-Создать файл .env, в котором необходимо создать переменные:
+В разделе проекта Setting/Secrets указать параметры:
 - SOCIAL_AUTH_VK_OAUTH2_KEY
 - SOCIAL_AUTH_VK_OAUTH2_SECRET
 - EMAIL_HOST_USER
@@ -34,14 +38,15 @@
 - POSTGRES_PASSWORD
 - DB_PORT 
 ## Как запустить проект
-- cd infra
-- Собрать и запустить все сервисы командой: docker-compose up -d
-##Выполнить команды по очереди.
-- docker-compose exec web python manage.py migrate
+#### Скопировать на сервер 
+- scp docker-compose.yaml back@<this.is.your.ip>:/home/back/docker-compose.yaml
+- scp -r nginx/ back@<this.is.your.ip:/home/back/
+#### Установит docker-compose на серввер
+- sudo apt-get install docker-compose
+### Выполнить команды по очереди.
+- зайти на 51.250.108.211/admin
+#### Создать суперпользователя
 - docker-compose exec web python manage.py createsuperuser
-- docker-compose exec web python manage.py collectstatic --no-input
-##При завершении работы выполнить команду для удаления контейнеров 
-- docker-compose down
 
 **1.post Добавление новой категории  localhost/api/v1/categories/:**
 - :white_check_mark:Права доступа: Администратор.
